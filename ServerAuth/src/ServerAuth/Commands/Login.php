@@ -44,8 +44,10 @@ public function onCommand(CommandSender $sender, Command $cmd, $label, array $ar
     							$status = ServerAuth::getAPI()->authenticatePlayer($sender, $args[0]);
     							if($status == ServerAuth::SUCCESS){
     								$sender->sendMessage($this->plugin->translateColors("&", $cfg["prefix"] . $this->plugin->chlang["login"]["login-success"]));
+    								$sender->getServer()->broadcastMessage(TextFormat::GREEN . $sender->getName() . " has logged in successfully");
     							}elseif($status == ServerAuth::ERR_WRONG_PASSWORD){
     								$sender->sendMessage($this->plugin->translateColors("&", $cfg["prefix"] . $this->plugin->chlang["errors"]["wrong-password"]));
+    								$sender->getServer()->broadcastMessage(TextFormat::RED . $sender->getName() . " has entered an incorrect password");
     							}elseif($status == ServerAuth::ERR_USER_ALREADY_AUTHENTICATED){
     								$sender->sendMessage($this->plugin->translateColors("&", $cfg["prefix"] . $this->plugin->chlang["login"]["already-login"]));
     							}elseif($status == ServerAuth::ERR_USER_NOT_REGISTERED){
